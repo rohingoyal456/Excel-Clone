@@ -57,6 +57,7 @@ body{
 }
 .address-bar{
     width: 5rem;
+    text-align: center;
 }
 .formula-icon{
     width: 1.3rem;
@@ -99,24 +100,69 @@ body{
 .grid-container{
     position: relative;
     height: calc( 100vh - 3rem - 3rem - 2rem - 3rem);
+    overflow: scroll;
+    background-color: #ecf0f1;
 }
 
 .top-left-dummy-box{
     height: 2rem;
     width: 2rem;
     background-color: #747d8c;
+    position: fixed;
+    z-index: 1;
 }
 .address-col-container{
-    height: 10rem;
-    width: 2rem;
+    
+    position: sticky;
+    top: 2rem;
+    left: 0;
+
 }
 .cells-container{
     position: absolute;
     top: 0;
     left: 2rem;
-    height: 5rem;
-    width: 10rem;
+    
 }
 .address-row-container{
     height: 2rem;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    left: 2rem;
+}
+.address-col{
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid #dfe4ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.address-row{
+    width: 5rem;
+    height: 2rem;
+    border: 1px solid #dfe4ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-box{
+    width: 5rem;
+    height: 2rem;
+    border: 1px solid #dfe4ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cell{
+    height: 2rem;
+    width: 5rem;
+    border: 1px solid #dfe4ea;
+    outline: none;
+}
+.row-container{
+    display: flex;
+
 }
