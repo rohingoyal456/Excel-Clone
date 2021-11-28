@@ -28,6 +28,9 @@ body{
     display: inline-block;
     margin-left: 1rem;
 }
+.cell-props-actions-container>*:hover{
+    cursor: pointer;
+}
 .cell-props-actions-container>select{
     border: none;
     border-radius: 0.1rem;
@@ -165,4 +168,15 @@ body{
 .row-container{
     display: flex;
 
+}
+.color-prop{
+    position: relative;
+}
+.color-prop>input{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }

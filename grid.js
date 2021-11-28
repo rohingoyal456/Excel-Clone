@@ -30,7 +30,10 @@ for(let i=1;i<=rows;i++)
     {
         let cell=document.createElement("div");
         cell.setAttribute("class","cell");
+        cell.setAttribute("rid",i);
+        cell.setAttribute("cid",j);
         cell.setAttribute("contenteditable","true");
+        cell.setAttribute("spellcheck","false");
         rowContainer.appendChild(cell);
         addListenerForAddressBarDisplay(cell,i,j);
     }
@@ -43,3 +46,6 @@ function addListenerForAddressBarDisplay(cell,i,j){
         addressbar.value=address;
     })
 }
+
+let firstCell=document.querySelector(".cell");
+firstCell.click();
