@@ -13,12 +13,18 @@ for(let i=1;i<=rows;i++)
             fontFamily:"monospace",
             fontSize:"14",
             fontColor:"#000000",
-            backgroundColor:"#ecf0f1"
+            backgroundColor:"#ecf0f1",
+            value:"",
+            formula:"",
+            children:[]
         }
         sheetRow.push(cellProp)
     }
     sheetDB.push(sheetRow)
 }
+
+
+// selectors for cell properties 
 
 let bold=document.querySelector(".bold");
 let italic=document.querySelector(".italic");
@@ -35,15 +41,18 @@ let backgroundColor=document.querySelector(".background-color-prop")
 let activeColorProp="#d1d8e0";
 let inactiveColorProp="#ecf0f1";
 
+// application of two way binding
+// attach property listeners
 
 bold.addEventListener("click",function(){
     let address=addressbar.value;
     let [cell,cellProp]=activecell(address);
 
     // modification
-    cellProp.bold=!cellProp.bold;
-    cell.style.fontWeight = cellProp.bold ? "bold" : "normal";
-    bold.style.backgroundColor=cellProp.bold ? activeColorProp:inactiveColorProp;
+    cellProp.bold=!cellProp.bold;    // data change 
+    cell.style.fontWeight = cellProp.bold ? "bold" : "normal";    // UI change (1)
+    bold.style.backgroundColor=cellProp.bold ? activeColorProp:inactiveColorProp;  // UI change (2)
+    console.log(cellProp);
 })
 
 italic.addEventListener("click",function(){
@@ -72,7 +81,7 @@ fontSize.addEventListener("change",()=>{
     
     cellProp.fontSize=fontSize.value;
     cell.style.fontSize=cellProp.fontSize+"px";
-    fontSize.value=cellProp.fontSize;
+    // fontSize.value=cellProp.fontSize;
 })
 
 fontFamily.addEventListener("change",()=>{
@@ -81,7 +90,7 @@ fontFamily.addEventListener("change",()=>{
     
     cellProp.fontFamily=fontFamily.value;
     cell.style.fontFamily=cellProp.fontFamily;
-    fontFamily.value=cellProp.fontFamily;
+    // fontFamily.value=cellProp.fontFamily;
 })
 
 fontColor.addEventListener("change",()=>{
@@ -106,12 +115,12 @@ alignment.forEach((alignElem)=>{
     alignElem.addEventListener("click",(e) =>{
         let address=addressbar.value;
         let [cell,cellProp]=activecell(address);
-
         let alignValue= e.target.classList[0];
         cellProp.alignment=alignValue;
-        cell.style.textAlign=cellProp.alignment;
-
-        switch(alignValue)
+        cell.style.textAlign=cellProp.alignment;  // ui change part 1
+        
+        // ui change part 2
+        switch(alignValue)  
         {
             case "left":
                 leftAlign.style.backgroundColor=activeColorProp;
@@ -145,9 +154,11 @@ function addListenertoAttachCellProperties(cell){
         let [rid,cid]=decodeRIDCIDFromAddress(address);
         let cellProp=sheetDB[rid][cid];
 
+        // apply cell properties 
+        
         cell.style.fontWeight = cellProp.bold ? "bold" : "normal";
         cell.style.fontStyle = cellProp.italic ? "italic" : "normal";
-        cell.style.textDecoration = cellProp.bold ? "underline" : "none";
+        cell.style.textDecoration = cellProp.underline ? "underline" : "none";
         cell.style.fontSize=cellProp.fontSize+"px";
         cell.style.fontFamily=cellProp.fontFamily;
         cell.style.color=cellProp.fontColor;
@@ -182,6 +193,9 @@ function addListenertoAttachCellProperties(cell){
                 rightAlign.style.backgroundColor=activeColorProp;
                 break;
         }
+        let formulaBar=document.querySelector(".formula-bar");
+        formulaBar.value=cellProp.formula;
+        cell.value=cellProp.value;
     })
 }
 
@@ -194,7 +208,7 @@ function activecell(address)
 }
 
 function decodeRIDCIDFromAddress(address){
-    let rid=Number(address.slice(1));
-    let cid=Number(address.charCodeAt(0))-64;
+    let rid=Number(address.slice(1))-1;
+    let cid=Number(address.charCodeAt(0))-65;
     return [rid,cid];
 }
